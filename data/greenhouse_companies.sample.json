@@ -1,0 +1,29 @@
+{
+  "companies": [
+    {
+      "name": "ExampleCloud",
+      "board_token": "examplecloud",
+      "enabled": false,
+      "homepage": "https://boards.greenhouse.io/examplecloud"
+    }
+  ],
+  "target_roles": [
+    {
+      "normalized_role": "backend_engineer",
+      "title_keywords": ["backend engineer", "software engineer", "platform engineer"],
+      "department_keywords": ["engineering", "infrastructure"]
+    },
+    {
+      "normalized_role": "data_engineer",
+      "title_keywords": ["data engineer", "analytics engineer"],
+      "department_keywords": ["data", "engineering"]
+    },
+    {
+      "normalized_role": "ai_engineer",
+      "title_keywords": ["ai engineer", "machine learning engineer", "ml engineer"],
+      "department_keywords": ["ai", "machine learning", "research"]
+    }
+  ],
+  "exclude_title_keywords": ["sales", "recruiter", "marketing", "account executive"],
+  "languages": ["en"]
+}

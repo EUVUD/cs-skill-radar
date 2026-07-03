@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
 from cs_skill_radar.analytics.exports import export_stats_csv, export_stats_json
@@ -10,6 +11,7 @@ from cs_skill_radar.analytics.skill_stats import compute_skill_stats
 from cs_skill_radar.config import DEFAULT_DATABASE_PATH, DEFAULT_EXPORTS_DIR
 from cs_skill_radar.db import SkillRadarDatabase
 from cs_skill_radar.extraction.skill_extractor import extract_skills
+from cs_skill_radar.sources.greenhouse import FetchJson, collect_greenhouse_jobs, load_greenhouse_config
 from cs_skill_radar.sources.manual import load_manual_jobs
 
 
@@ -21,6 +23,9 @@ def build_parser() -> argparse.ArgumentParser:
     import_manual = subparsers.add_parser("import-manual")
     import_manual.add_argument("--file", required=True, help="Manual JSON input path")
 
+    import_greenhouse = subparsers.add_parser("import-greenhouse")
+    import_greenhouse.add_argument("--companies", required=True, help="Greenhouse company JSON path")
+
     subparsers.add_parser("extract-skills")
     subparsers.add_parser("compute-stats")
 
@@ -30,7 +35,7 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def main(argv: list[str] | None = None) -> int:
+def main(argv: list[str] | None = None, greenhouse_fetcher: FetchJson | None = None) -> int:
     args = build_parser().parse_args(argv)
     db = SkillRadarDatabase(args.db)
     db.initialize()
@@ -39,6 +44,26 @@ def main(argv: list[str] | None = None) -> int:
         jobs = load_manual_jobs(args.file)
         db.save_jobs(jobs)
         print(f"Imported {len(jobs)} manual jobs.")
+        return 0
+
+    if args.command == "import-greenhouse":
+        try:
+            config = load_greenhouse_config(args.companies)
+        except ValueError as exc:
+            print(str(exc), file=sys.stderr)
+            return 2
+
+        result = collect_greenhouse_jobs(config, fetcher=greenhouse_fetcher)
+        db.save_or_update_seen_jobs(result.jobs)
+        print(
+            "Imported "
+            f"{len(result.jobs)} Greenhouse jobs from "
+            f"{len(result.successful_companies)} companies; "
+            f"skipped {result.skipped_jobs} jobs; "
+            f"failed {len(result.failed_companies)} companies."
+        )
+        for failure in result.failed_companies:
+            print(f"{failure.company}: {failure.error}")
         return 0
 
     if args.command == "extract-skills":
