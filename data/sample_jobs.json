@@ -1,0 +1,20 @@
+[
+  {
+    "source_url": "manual://sample/backend-engineer",
+    "company": "ExampleCloud",
+    "title": "Backend Engineer",
+    "normalized_role": "backend_engineer",
+    "location": "Remote",
+    "seniority": "mid",
+    "description": "We are looking for a Backend Engineer with Python, PostgreSQL, REST API experience, and Docker. Kubernetes is preferred."
+  },
+  {
+    "source_url": "manual://sample/ai-engineer",
+    "company": "ExampleAI",
+    "title": "AI Engineer",
+    "normalized_role": "ai_engineer",
+    "location": "New York, NY",
+    "seniority": "senior",
+    "description": "Build LLM and RAG systems using Python, vector databases, evaluation workflows, and the OpenAI API."
+  }
+]
