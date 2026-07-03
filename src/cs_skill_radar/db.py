@@ -3,10 +3,11 @@
 from __future__ import annotations
 
 import sqlite3
+from datetime import datetime
 from pathlib import Path
 from typing import Iterable
 
-from cs_skill_radar.models import ExtractedSkill, JobPosting
+from cs_skill_radar.models import ExtractedSkill, JobPosting, utc_now
 
 
 class SkillRadarDatabase:
@@ -110,6 +111,38 @@ class SkillRadarDatabase:
 
     def save_jobs(self, jobs: Iterable[JobPosting]) -> list[int]:
         return [self.save_job(job) for job in jobs]
+
+    def save_or_update_seen_job(self, job: JobPosting, seen_at: datetime | None = None) -> int:
+        self.initialize()
+        seen_time = seen_at or utc_now()
+        duplicate_id = self.find_duplicate_job_id(job)
+        if duplicate_id is not None:
+            with self.connect() as connection:
+                connection.execute(
+                    """
+                    UPDATE jobs
+                    SET last_seen_at = ?
+                    WHERE id = ?
+                    """,
+                    (seen_time.isoformat(), duplicate_id),
+                )
+            return duplicate_id
+
+        seen_job = job.model_copy(
+            update={
+                "first_seen_at": seen_time,
+                "last_seen_at": seen_time,
+            }
+        )
+        return self.save_job(seen_job)
+
+    def save_or_update_seen_jobs(
+        self,
+        jobs: Iterable[JobPosting],
+        seen_at: datetime | None = None,
+    ) -> list[int]:
+        seen_time = seen_at or utc_now()
+        return [self.save_or_update_seen_job(job, seen_at=seen_time) for job in jobs]
 
     def list_jobs(self) -> list[JobPosting]:
         self.initialize()

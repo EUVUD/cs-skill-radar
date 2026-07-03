@@ -1,0 +1,76 @@
+{
+  "jobs": [
+    {
+      "id": 101,
+      "internal_job_id": 1001,
+      "title": "Backend Engineer",
+      "absolute_url": "https://boards.greenhouse.io/examplecloud/jobs/101",
+      "location": {"name": "Remote"},
+      "content": "<p>Build Python services with PostgreSQL.</p>",
+      "departments": [{"name": "Engineering"}],
+      "offices": [{"name": "Remote"}],
+      "language": "en",
+      "updated_at": "2026-07-02T10:00:00-04:00"
+    },
+    {
+      "id": 102,
+      "internal_job_id": 1002,
+      "title": "Platform Engineer",
+      "absolute_url": null,
+      "location": {"name": "New York, NY"},
+      "content": "<div>Own Kubernetes and Terraform infrastructure.</div>",
+      "departments": [{"name": "Infrastructure Engineering"}],
+      "offices": [{"name": "New York"}],
+      "language": "en",
+      "updated_at": "2026-07-02T11:00:00-04:00"
+    },
+    {
+      "id": 103,
+      "internal_job_id": 1003,
+      "title": "Sales Engineer",
+      "absolute_url": "https://boards.greenhouse.io/examplecloud/jobs/103",
+      "location": {"name": "Remote"},
+      "content": "<p>Partner with customers.</p>",
+      "departments": [{"name": "Sales"}],
+      "offices": [{"name": "Remote"}],
+      "language": "en",
+      "updated_at": "2026-07-02T12:00:00-04:00"
+    },
+    {
+      "id": 104,
+      "internal_job_id": 1004,
+      "title": "Backend Engineer",
+      "absolute_url": "https://boards.greenhouse.io/examplecloud/jobs/104",
+      "location": {"name": "Paris, France"},
+      "content": "<p>Build services.</p>",
+      "departments": [{"name": "Engineering"}],
+      "offices": [{"name": "Paris"}],
+      "language": "fr",
+      "updated_at": "2026-07-02T13:00:00-04:00"
+    },
+    {
+      "id": 105,
+      "internal_job_id": 1005,
+      "title": "Backend Engineer",
+      "absolute_url": "https://boards.greenhouse.io/examplecloud/jobs/105",
+      "location": {"name": "Remote"},
+      "content": "   ",
+      "departments": [{"name": "Engineering"}],
+      "offices": [{"name": "Remote"}],
+      "language": "en",
+      "updated_at": "2026-07-02T14:00:00-04:00"
+    },
+    {
+      "id": 106,
+      "internal_job_id": null,
+      "title": "Future Opportunities",
+      "absolute_url": "https://boards.greenhouse.io/examplecloud/jobs/106",
+      "location": {"name": "Remote"},
+      "content": "<p>Tell us about yourself.</p>",
+      "departments": [{"name": "Engineering"}],
+      "offices": [{"name": "Remote"}],
+      "language": "en",
+      "updated_at": "2026-07-02T15:00:00-04:00"
+    }
+  ]
+}
